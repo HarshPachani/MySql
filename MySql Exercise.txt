@@ -40,4 +40,25 @@ mysql> desc countries;
 3 rows in set (0.00 sec)
 
 Query 3:
- Create table named job_history including columns employee_id, start_date, end_date, job_id and department_id and make sure that the value against column end_date will be entered at the time of insertion to the format like '--/--/----'
+ Create table named job_history including columns employee_id, start_date, end_date, job_id and department_id and make sure that the value against column end_date will be entered at the time of insertion to the format like '--/--/----'0
+mysql> create table job_history(
+    -> employee_id decimal(6,0) NOT NULL,
+    -> START_DATE date NOT NULL,
+    -> END_DATE date NOT NULL
+    -> CHECK(END_DATE LIKE '--/--/----'),
+    -> JOB_ID varchar(10) NOT NULL,
+    -> DEPARTMENT_ID decimal(4,0) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc job_history;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| employee_id   | decimal(6,0) | NO   |     | NULL    |       |
+| START_DATE    | date         | NO   |     | NULL    |       |
+| END_DATE      | date         | NO   |     | NULL    |       |
+| JOB_ID        | varchar(10)  | NO   |     | NULL    |       |
+| DEPARTMENT_ID | decimal(4,0) | NO   |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
