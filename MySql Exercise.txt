@@ -122,3 +122,99 @@ mysql> desc countries;
 | region_id    | decimal(10,0) | NO   |     | NULL    |       |
 +--------------+---------------+------+-----+---------+-------+
 3 rows in set (0.01 sec)
+
+Query 7:
+ Create table countries including columns country_id, country_name and region_id and make sure that the column country_id will be unique and store an auto incremented value.
+mysql> create table countries(
+    -> COUNTRY_ID int NOT NULL UNIQUE AUTO_INCREMENT PRIMARY KEY,
+    -> COUNTRY_NAME varchar(40) NOT NULL,
+    -> REGION_ID decimal(10,0) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc countries;
++--------------+---------------+------+-----+---------+----------------+
+| Field        | Type          | Null | Key | Default | Extra          |
++--------------+---------------+------+-----+---------+----------------+
+| COUNTRY_ID   | int           | NO   | PRI | NULL    | auto_increment |
+| COUNTRY_NAME | varchar(40)   | NO   |     | NULL    |                |
+| REGION_ID    | decimal(10,0) | NO   |     | NULL    |                |
++--------------+---------------+------+-----+---------+----------------+
+3 rows in set (0.01 sec)
+
+Query 8:
+ Create table countries including columns country_id, country_name and region_id and make sure that the combination of columns country_id and region_id will be unique.
+mysql> create table countries(
+    -> COUNTRY_ID varchar(2) NOT NULL UNIQUE DEFAULT '',
+    -> COUNTRY_NAME varchar(40) DEFAULT NULL,
+    -> REGION_ID decimal(10,0) NOT NULL,
+    -> PRIMARY KEY (COUNTRY_ID, REGION_ID)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc countries;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| COUNTRY_ID   | varchar(2)    | NO   | PRI |         |       |
+| COUNTRY_NAME | varchar(40)   | YES  |     | NULL    |       |
+| REGION_ID    | decimal(10,0) | NO   | PRI | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+Query 9:
+ Create a table job_history including columns employee_id, start_date, end_date, job_id and department_id and make sure that, the employee_id column 
+does not contain any duplicate value at the time of insertion and the foreign key column job_id contain only those values which are exists in the jobs table.
+mysql> create table job_history(
+    -> EMPLOYEE_ID decimal(6,0) NOT NULL PRIMARY KEY,
+    -> START_DATE date NOT NULL,
+    -> END_DATE date NOT NULL,
+    -> JOB_ID varchar(10) NOT NULL,
+    -> DEPARTMENT_ID decimal(4,0) DEFAULT NULL,
+    -> FOREIGN KEY (JOB_ID) REFERENCES jobs(JOB_ID)
+    -> )ENGINE = INNODB;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc job_history;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| EMPLOYEE_ID   | decimal(6,0) | NO   | PRI | NULL    |       |
+| START_DATE    | date         | NO   |     | NULL    |       |
+| END_DATE      | date         | NO   |     | NULL    |       |
+| JOB_ID        | varchar(10)  | NO   | MUL | NULL    |       |
+| DEPARTMENT_ID | decimal(4,0) | YES  |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+Query 10:
+ Create table employees including columns employee_id, first_name, last_name, email, phone_number, hire_date, job_id, salary, commission, manager_id and department_id and 
+make sure that, the employee_id column does not contain any duplicate value at the time of insertion and the foreign key columns combined by department_id and manager_id columns
+contain only those unique combination values, which combinations are exists in the departments table.
+mysql> create table departments(
+    -> DEPARTMENT_ID decimal(4,0) NOT NULL,
+    -> DEPARTMENT_NAME varchar(30) NOT NULL,
+    -> MANAGER_ID decimal(6,0) NOT NULL,
+    -> LOCATION_ID decimal(4,0)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table employees(
+    -> EMPLOYEE_ID decimal(6,0) NOT NULL PRIMARY KEY,
+    -> FIRST_NAME varchar(20) DEFAULT NULL,
+    -> LAST_TIME varchar(25) NOT NULL,
+    -> EMAIL varchar(25) NOT NULL,
+    -> PHONE_NUMBER varchar(20) DEFAULT NULL,
+    -> HIRE_DATE date NOT NULL,
+    -> JOB_ID varchar(10) NOT NULL,
+    -> SALARY decimal(8,2) DEFAULT NULL,
+    -> COMMISSION_PCT decimal(2,2) DEFAULT NULL,
+    -> MANAGER_ID decimal(6,0) DEFAULT NULL,
+    -> DEPARTMENT_ID decimal(4,0) DEFAULT NULL,
+    -> FOREIGN KEY(DEPARTMENT_ID, MANAGER_ID)
+    -> REFERENCES departments(DEPARTMENT_ID, MANAGER_ID)
+    -> );
+
+MySql Insert Into Statement
+Query 11:
+  
