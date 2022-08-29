@@ -21,3 +21,23 @@ mysql> desc jobs;
 
 Query 2:
  Create a table named countries including columns country_id, country_name and region_id and make sure that no countries except Italy, India and China will be entered in the table
+mysql> create table countries(
+    -> country_id varchar(3),
+    -> country_name varchar(40),
+    -> check(country_name in ('Italy','India','China')),
+    -> region_id decimal(10,0)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc countries;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| country_id   | varchar(3)    | YES  |     | NULL    |       |
+| country_name | varchar(40)   | YES  |     | NULL    |       |
+| region_id    | decimal(10,0) | YES  |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+Query 3:
+ Create table named job_history including columns employee_id, start_date, end_date, job_id and department_id and make sure that the value against column end_date will be entered at the time of insertion to the format like '--/--/----'
