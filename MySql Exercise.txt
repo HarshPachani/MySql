@@ -1,0 +1,23 @@
+Query 1:
+ Create a Table jobs, and check one of it column max_salary amount exceeding the upper limit 25000
+create table jobs(
+    -> job_id varchar(10) not null,
+    -> job_title varchar(35) not null,
+    -> min_salary decimal(6,0),
+    -> max_salary decimal(6,0)
+    -> check(max_salary <= 25000)
+    -> );
+mysql> desc jobs;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| job_id     | varchar(10)  | NO   |     | NULL    |       |
+| job_title  | varchar(35)  | NO   |     | NULL    |       |
+| min_salary | decimal(6,0) | YES  |     | NULL    |       |
+| max_salary | decimal(6,0) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+
+Query 2:
+ Create a table named countries including columns country_id, country_name and region_id and make sure that no countries except Italy, India and China will be entered in the table
