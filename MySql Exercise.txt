@@ -264,3 +264,16 @@ mysql> select * from country_new;
 | c1         | India        |
 +------------+--------------+
 1 row in set (0.00 sec)
+
+Query 14:
+ Insert NULL values against region_id column for a row of countries table.
+mysql> INSERT INTO countries(COUNTRY_ID, COUNTRY_NAME, REGION_ID) VALUES('c1', 'India', NULL);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from countries;
++------------+--------------+-----------+
+| COUNTRY_ID | COUNTRY_NAME | REGION_ID |
++------------+--------------+-----------+
+| c1         | India        | NULL      |
++------------+--------------+-----------+
+1 row in set (0.00 sec)
