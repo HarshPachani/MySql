@@ -217,4 +217,50 @@ mysql> create table employees(
 
 MySql Insert Into Statement
 Query 11:
-  
+  Insert a record with your own value into the table countries against each columns
+mysql> INSERT INTO countries(COUNTRY_ID, COUNTRY_NAME, REGION_ID)
+    -> VALUES ('c1', 'INDIA', 1001);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from countries;
++------------+--------------+-----------+
+| COUNTRY_ID | COUNTRY_NAME | REGION_ID |
++------------+--------------+-----------+
+| c1         | INDIA        |      1001 |
++------------+--------------+-----------+
+1 row in set (0.00 sec)
+
+Query 12:
+ Insert one row into the table countries against the column country_id and country_name.
+mysql> create table countries(
+    -> COUNTRY_ID varchar(2) NOT NULL UNIQUE PRIMARY KEY,
+    -> COUNTRY_NAME varchar(40) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO countries(COUNTRY_ID, COUNTRY_NAME)
+    -> VALUES ('c1', 'India');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from countries;
++------------+--------------+
+| COUNTRY_ID | COUNTRY_NAME |
++------------+--------------+
+| c1         | India        |
++------------+--------------+
+1 row in set (0.00 sec)
+
+Query 13:
+ Create duplicate of countries table named country_new with all structure and data.
+mysql> create table if not exists country_new
+    -> as select * from countries;
+Query OK, 1 row affected (0.03 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> select * from country_new;
++------------+--------------+
+| COUNTRY_ID | COUNTRY_NAME |
++------------+--------------+
+| c1         | India        |
++------------+--------------+
+1 row in set (0.00 sec)
