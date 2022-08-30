@@ -277,3 +277,72 @@ mysql> select * from countries;
 | c1         | India        | NULL      |
 +------------+--------------+-----------+
 1 row in set (0.00 sec)
+
+Query 15:
+ Insert 3 rows by a single insert statement.
+mysql> create table countries(
+    -> country_id varchar(200),
+    -> country_name varchar(40),
+    -> region_id decimal(10,0)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into countries values('c001', 'India', 1001), ('c002', 'USA', 1007), ('c003', 'UK', 1003);
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from countries;
++------------+--------------+-----------+
+| country_id | country_name | region_id |
++------------+--------------+-----------+
+| c001       | India        |      1001 |
+| c002       | USA          |      1007 |
+| c003       | UK           |      1003 |
++------------+--------------+-----------+
+3 rows in set (0.00 sec)
+
+Query 16:
+ Insert rows from country_new table to countries table.
+mysql> create table country_new(
+    -> country_id varchar(200),
+    -> country_name varchar(40),
+    -> region_id decimal(10,0)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+mysql> create table countries(
+    -> country_id varchar(200),
+    -> country_name varchar(40),
+    -> region_id decimal(10,0)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+mysql> insert into country_new values('c001', 'India', 1001), ('c002', 'USA', 1007), ('c003', 'UK', 1003);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from country_new;
++------------+--------------+-----------+
+| country_id | country_name | region_id |
++------------+--------------+-----------+
+| c001       | India        |      1001 |
+| c002       | USA          |      1007 |
+| c003       | UK           |      1003 |
++------------+--------------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from countries;
+Empty set (0.00 sec)
+
+mysql> INSERT INTO countries
+    -> SELECT * FROM country_new;
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from countries;
++------------+--------------+-----------+
+| country_id | country_name | region_id |
++------------+--------------+-----------+
+| c001       | India        |      1001 |
+| c002       | USA          |      1007 |
+| c003       | UK           |      1003 |
++------------+--------------+-----------+
+3 rows in set (0.00 sec)
