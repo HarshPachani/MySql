@@ -390,3 +390,101 @@ mysql> select * from countries;
 
 Query 19:
  Insert records into the table countries in which the country_id column will be unique and auto incremented and the country_name will be filled up by 'N/A' if no value assigned.
+mysql> create table countries(
+    -> country_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    -> country_name varchar(40) NOT NULL DEFAULT 'N/A',
+    -> region_id int NOT NULL);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO countries VALUES(501, 'India', 102);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from countries;
++------------+--------------+-----------+
+| country_id | country_name | region_id |
++------------+--------------+-----------+
+|        501 | India        |       102 |
++------------+--------------+-----------+
+1 row in set (0.00 sec)
+
+Query 20:
+ Insert rows in the job_history table in which one column job_id is containing those values which are exists in job_id column of jobs table.
+mysql> create table department(
+    -> department_id int NOT NULL UNIQUE,
+    -> department_name varchar(30) NOT NULL,
+    -> manager_id int DEFAULT NULL,
+    -> location_id int DEFAULT NULL,
+    -> PRIMARY KEY(department_id)
+    -> )ENGINE = InnoDB;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO department VALUES(60, 'SALES', 201, 89), (61, 'ACCOUNTS', 201, 89);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from department;
++---------------+-----------------+------------+-------------+
+| department_id | department_name | manager_id | location_id |
++---------------+-----------------+------------+-------------+
+|            60 | SALES           |        201 |          89 |
+|            61 | ACCOUNTS        |        201 |          89 |
++---------------+-----------------+------------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> create table jobs(
+    -> job_id int NOT NULL UNIQUE PRIMARY KEY,
+    -> job_title varchar(35) NOT NULL DEFAULT ' ',
+    -> MIN_SALARY decimal(6,0) DEFAULT 8000,
+    -> MAX_SALARY decimal(6,0) DEFAULT 20000);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>
+mysql> INSERT INTO jobs(job_id, job_title) VALUES(1001, 'OFFICER'), (1002, 'CLERK');
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from jobs;
++--------+-----------+------------+------------+
+| job_id | job_title | MIN_SALARY | MAX_SALARY |
++--------+-----------+------------+------------+
+|   1001 | OFFICER   |       8000 |      20000 |
+|   1002 | CLERK     |       8000 |      20000 |
++--------+-----------+------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> create table employees(
+    -> employee_id int NOT NULL PRIMARY KEY,
+    -> first_name varchar(20) DEFAULT NULL,
+    -> last_name varchar(25) NOT NULL,
+    -> department_id int DEFAULT NULL,
+    -> FOREIGN KEY(department_id) REFERENCES departments(department_id),
+    -> job_id int NOT NULL,
+    -> FOREIGN KEY(job_id) REFERENCES jobs(job_id),
+    -> salary decimal(8,2) DEFAULT NULL
+    -> );
+ERROR 1824 (HY000): Failed to open the referenced table 'departments'
+mysql> create table employees(
+    -> employee_id int NOT NULL PRIMARY KEY,
+    -> first_name varchar(20) DEFAULT NULL,
+    -> last_name varchar(25) NOT NULL,
+    -> department_id int DEFAULT NULL,
+    -> FOREIGN KEY(department_id) REFERENCES department(department_id),
+    -> job_id int NOT NULL,
+    -> FOREIGN KEY(job_id) REFERENCES jobs(job_id),
+    -> salary decimal(8,2) DEFAULT NULL
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into employees values(510, 'Alex', 'Hanes', 60, 1001, 18000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employees;
++-------------+------------+-----------+---------------+--------+----------+
+| employee_id | first_name | last_name | department_id | job_id | salary   |
++-------------+------------+-----------+---------------+--------+----------+
+|         510 | Alex       | Hanes     |            60 |   1001 | 18000.00 |
++-------------+------------+-----------+---------------+--------+----------+
+1 row in set (0.00 sec)
+
+mysql> insert into employees values(511, 'Tom', 'Elan', 60, 1003, 22000);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`practice`.`employees`, CONSTRAINT `employees_ibfk_2` FOREIGN KEY (`job_id`) REFERENCES `jobs` (`job_id`))
