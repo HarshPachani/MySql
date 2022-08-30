@@ -346,3 +346,47 @@ mysql> select * from countries;
 | c003       | UK           |      1003 |
 +------------+--------------+-----------+
 3 rows in set (0.00 sec)
+
+Query 17:
+Insert one row in jobs table to ensure that no duplicate value will be entered in the job_id column.
+mysql> create table jobs(
+    -> job_id int NOT NULL UNIQUE,
+    -> job_title varchar(35) NOT NULL,
+    -> min_salary decimal(6,0)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO jobs VALUES(1001, 'OFFICER', 8000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from jobs;
++--------+-----------+------------+
+| job_id | job_title | min_salary |
++--------+-----------+------------+
+|   1001 | OFFICER   |       8000 |
++--------+-----------+------------+
+1 row in set (0.00 sec)
+
+Query 18:
+ Insert a record into the table countries to ensure that, a country_id and region_id combination will be entered once in the table.
+mysql> create table countries(
+    -> country_id int NOT NULL,
+    -> country_name varchar(40) NOT NULL,
+    -> region_id int NOT NULL,
+    -> PRIMARY KEY(country_id, region_id)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO COUNTRIES VALUES(501, 'India', 185);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from countries;
++------------+--------------+-----------+
+| country_id | country_name | region_id |
++------------+--------------+-----------+
+|        501 | India        |       185 |
++------------+--------------+-----------+
+1 row in set (0.00 sec)
+
+Query 19:
+ Insert records into the table countries in which the country_id column will be unique and auto incremented and the country_name will be filled up by 'N/A' if no value assigned.
